@@ -1,0 +1,150 @@
+.album-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.album-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.album-header-container > h1 {
+    font-size: 30px;
+    margin: 20px;
+}
+.album-header-container > button.left-right {
+    border-radius: 30px;
+    background-color: red;
+}
+
+.album-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.album-images > .no-images {
+    font-size: 30px;
+    line-height: 500px;
+}
+
+.album-image-item {
+    width: 400px;
+    margin: 20px;
+    transition: all 0.3s;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.album-image-item:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 1);
+}
+
+.album-image-item__image-container {
+    width: fit-content;
+    margin: auto auto;
+}
+.album-image-item__image-container img {
+    width: 100%;
+}
+
+.album-image-item__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.album-image-item__name {
+    font-size: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.album-image-item__checkbox {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.album-images-tools {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 40%;
+    left: 3%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+.album-images-tools button {
+    width: 75px;
+    height: 75px;
+    border-radius: 10px;
+    font-size: 50px;
+    line-height: 75px;
+}
+
+
+.add-new-image {
+    position: fixed;
+    top: 5%;
+    right: 3%;
+    display: flex;
+}
+.add-new-image button {
+    border-radius: 30px;
+    padding: 25px;
+    font-size: 50px;
+}
+.add-new-image > button {
+    height: 110px;
+    transition: all 0.5s;
+}
+
+.add-new-image-types {
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+.add-new-image-types.show {
+    opacity: 1;
+}
+.add-new-image-types.show * {
+    pointer-events: auto;
+}
+.add-new-image-types.hide {
+    display: none;
+}
+
+.add-new-image > button.show {
+    height: 380px;
+}
+
+
+
+.found-image img {
+    width: 300px;
+    margin: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
+    cursor: pointer;
+}
+.found-image img:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 1);
+}
+.found-image input[type="checkbox"] {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
+.existing-image.selected {
+    box-shadow: 0px 4px 10px red;
+}
+.existing-image.selected:hover {
+    box-shadow: 0px 4px 10px red;
+}

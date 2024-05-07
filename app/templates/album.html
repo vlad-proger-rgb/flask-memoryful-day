@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ album_name }} - Memoryful Day</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_album.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_fullscreen_image.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_modals/style_modal.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_modals/images_from_calendar_by_date_range.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_modals/images_by_urls.css') }}">
+
+    <script src="{{ url_for('static', filename='scripts/script.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='scripts/fullscreen_image_opener.js') }}" type="text/javascript"></script>
+    <script defer src="{{ url_for('static', filename='scripts/scripts_modals/images_from_calendar_by_date_range.js') }}" type="text/javascript"></script>
+    <script defer src="{{ url_for('static', filename='scripts/scripts_modals/images_by_urls.js') }}" type="text/javascript"></script>
+</head>
+<body>
+
+    {% include 'blocks/header.html' %}
+
+    <main>
+        <div class="album-container">
+            <div class="album-header-container">
+                <h1>{{ album_name }}</h1>
+                <button class="left-right" onclick="deleteAlbum()">Delete Album</button>
+            </div>
+
+            <div class="album-information">
+                <p>There will be info box about this album</p>
+            </div>
+
+            <!-- <div class="upload-images">
+                <input type="file" name="images[]" accept="image/*" multiple>
+                <button class="left-right">Upload images</button>
+            </div> -->
+
+            <div class="album-images">
+                {% if album.images %}
+                    {% for image in album.images %}
+                        {% set image = image %}
+                        {% include 'blocks/album_image_item.html' %}
+                    {% endfor %}
+                {% else %}
+                    <div class="no-images">No images in this album</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="album-images-tools">
+            <button class="left-right tool_delete-selected" title="Delete selected" onclick="deleteSelected()">&#128465;</button>
+            <button class="left-right tool_move-to-album-selected" title="Move selected images to another album" onclick="moveToAlbumSelected()">&#128472;</button>
+        </div>
+
+        <div class="add-new-image">
+            <div class="add-new-image-types hide">
+                <button class="left-right" onclick="openFileInput()">From PC</button>
+                <button class="left-right open-modal__images-by-url">From URL</button>
+                <button class="left-right open-modal__images-from-calendar-by-date-range">From Calendar</button>
+            </div>
+            <button class="left-right" title="Add new image" onclick="showUploadTypes()">+</button>
+            <input type="file" id="add-new-image" style="display: none;" multiple>
+        </div>
+
+        {% include 'modals/fullscreen_image.html' %}
+
+        {% set type="in_album" %}
+        {% include 'modals/images_by_urls.html' %}
+
+        {% set type="in_album" %}
+        {% include 'modals/images_from_calendar_by_date_range.html' %}
+
+    </main>
+
+    {% include 'blocks/footer.html' %}
+
+    <script>
+        let addNewImageInput = document.querySelector('#add-new-image');
+        let addNewImageTypes = document.querySelector('.add-new-image-types');
+        let addNewImageButton = document.querySelector('.add-new-image > button');
+
+        let startDate = document.querySelector('.start-date');
+        let endDate = document.querySelector('.end-date');
+
+        startDate.value = new Date(new Date() - 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+        endDate.value = new Date().toISOString().split("T")[0];
+
+        let selectedImages = [];
+
+        function openFileInput() {
+            addNewImageInput.click();
+        }
+
+        function showUploadTypes() {
+            addNewImageTypes.classList.toggle('show');
+            if (addNewImageTypes.classList.contains('show')) {
+                addNewImageTypes.classList.remove('hide');
+            } else {
+                addNewImageTypes.classList.add('hide');
+            }
+            addNewImageButton.classList.toggle('show');
+        }
+
+        function selectImage(image) {
+            if (selectedImages.includes(image)) {
+                console.log(`Image ${image} already selected`);
+                selectedImages.splice(selectedImages.indexOf(image), 1);
+            } else {
+                selectedImages.push(image);
+            }
+            console.log(`Selected image: ${image}`);
+            console.log(`Selected images: ${selectedImages}`);
+        }
+
+        addNewImageInput.addEventListener('change', function() {
+            let files = addNewImageInput.files;
+            let formData = new FormData();
+
+            if (!files.length) {
+                alert('No files selected');
+                return;
+            }
+
+            console.log("files:", files)
+
+            for (let i = 0; i < files.length; i++) {
+                formData.append('images', files[i]);
+            }
+
+            fetch('/gallery/album/{{ album_name }}', {
+                method: "POST",
+                body: formData
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Error uploading images');
+                }
+                location.reload();
+            }).catch(error => {
+                alert('Error uploading images: ' + error);
+            });
+        });
+
+        function deleteSelected() {
+            if (!selectedImages.length) {
+                alert('No images selected');
+                return;
+            }
+            let formData = new FormData();
+            let allowToDeleteFiles = confirm('Are you sure you want to delete files of the selected images?');
+            console.log("allowToDeleteFiles:", allowToDeleteFiles)
+            formData.append('images_to_delete', selectedImages);
+            formData.append('allowToDeleteFiles', allowToDeleteFiles);
+
+            fetch('/gallery/album/{{ album_name }}/delete_selected', {
+                method: "POST",
+                body: formData
+            }).then(response => {
+                if (!response.ok) {
+                    console.log(response);
+                    alert('Error deleting images', response);
+                    throw new Error('Error deleting images');
+                }
+                return response.json()
+            }).then(data => {
+                console.log(data)
+                alert(`message:\n${data["message"]}`);
+                location.reload();
+            }).catch(error => {
+                alert('Error deleting images: ' + error);
+            });
+        }
+
+        function deleteAlbum() {
+            if (!confirm('Are you sure you want to delete this album?')) {
+                return;
+            }
+
+            fetch('/gallery/album/{{ album_name }}', {
+                method: "DELETE"
+            }).then(response => {
+                if (!response.ok) {
+                    console.log(response);
+                    alert('Error deleting album:', response);
+                    throw new Error('Error deleting album');
+                }
+                location.href = '/gallery';
+            }).catch(error => {
+                alert('Error deleting album: ' + error);
+            });
+        }
+
+    </script>
+</body>
+</html>

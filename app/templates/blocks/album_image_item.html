@@ -1,0 +1,14 @@
+<div class="album-image-item">
+    <div class="album-image-item__image-container">
+        {% if 'http' in image.source %}
+            <img src="{{ image.source }}" class="fullscreenable">
+        {% else %}
+            <img src="{{ url_for('static', filename='images/calendar/' + user + '/' + image.source) }}"
+                class="fullscreenable">
+        {% endif %}
+    </div>
+    <div class="album-image-item__footer">
+        <p class="album-image-item__name">{{ image.source }}</p>
+        <input class="album-image-item__checkbox" id="image-checkbox-{{ image.source }}" type="checkbox" onchange="selectImage('{{ image.source }}')">
+    </div>
+</div>

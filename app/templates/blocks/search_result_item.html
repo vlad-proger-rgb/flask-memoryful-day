@@ -1,0 +1,14 @@
+<div class="search-result-item">
+    <div class="result-content">
+        <p class="result-title">{{ result.description }}</p>
+        <p class="result-info">
+            <span class="result-date">{{ result.getDate() }}</span>
+            <p class="result-subtitle">{{ result.content }}</p>
+        </p>
+    </div>
+    <button class="left-right result-open">
+        <a href="{{ url_for('calendar.day', year=result.getYear(), month=result.getMonth(), dayNumber=result.getDayNumber()) }}">
+            Open
+        </a>
+    </button>
+</div>

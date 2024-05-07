@@ -1,0 +1,30 @@
+<div class="modal modal__images-by-url-container">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <p>Add images by URLs</p>
+            <span class="close-modal close-modal__images-by-url">&times;</span>
+        </div>
+
+        <div class="modal-body">
+            <div class="image-by-url-inputs">
+                <div class="image-by-url__input">
+                    <input class="image-by-url" type="url" name="urls" placeholder="https://example.com">
+                    <button class="left-right" onclick="removeURLInput(event)">X</button>
+                </div>
+            </div>
+            <button class="left-right" title="Add new URL text input" onclick="appendURLInput()">+</button>
+        </div>
+
+        <div class="modal-footer">
+            {% if type == "in_album" %}
+                <button class="left-right" onclick='addImagesByURLs("{{ album_name }}")'>Add</button>
+            {% elif type == "in_gallery" %}
+                <button class="left-right" onclick='addImagesByURLs()'>Use</button>
+            {% else %}
+                <p>uhm.. something went wrong. Type: {{ type }}</p>
+            {% endif %}
+        </div>
+
+    </div>
+</div>

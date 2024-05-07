@@ -1,0 +1,15 @@
+<div class="write-today">
+    <span id="today-number"></span>
+    <span>What about writing today's day?</span>
+    <span id="write-today-go">Go ></span>
+    <script>
+        let now = new Date();
+        document.getElementById("today-number").innerHTML = now.toLocaleDateString();
+
+        document.getElementById("write-today-go").addEventListener("click", 
+            function() {
+                window.location.href = `/calendar/${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()}`;
+            }
+        );
+    </script>
+</div>

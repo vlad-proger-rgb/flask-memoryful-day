@@ -1,0 +1,31 @@
+<div class="modal modal__new-album-container">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <span class="new-album-modal-title">New album</span>
+            <span class="close-modal close-modal__new-album">&times;</span>
+        </div>
+
+        <div class="modal-body">
+            <form method="post" 
+                action="{{ url_for('gallery.new_albom') }}"
+                enctype="multipart/form-data"
+                class="new-album-form">
+
+                <label for="new-album-name">Name of the album</label>
+                <input id="new-album-name" class="new-album-name" name="name" type="text" placeholder="Enter album name" required>
+
+                <button class="left-right open-modal__images-from-calendar-by-date-range" type="button">Find images from calendar</button>
+                <button class="left-right open-modal__images-by-url" type="button">Add images from URLs</button>
+
+                <label for="new-album-images">Upload images</label>
+                <input id="new-album-images" class="new-album-images" name="images[]" type="file" accept="image/*" multiple>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <input class="left-right" id="new-album-submit" value="Create" onclick="createAlbum()" type="button">
+        </div>
+
+    </div>
+</div>

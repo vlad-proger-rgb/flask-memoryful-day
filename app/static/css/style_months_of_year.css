@@ -1,0 +1,21 @@
+@import url("./style_button.css");
+
+.year-heading {
+    letter-spacing: 10px;
+    margin-left: 50px;
+}
+.month {
+    letter-spacing: 5px;
+    font-size: 20px;
+    margin: 10px;
+    user-select: none;
+    color: black;
+    transition: all .2s;
+}
+.month:hover {
+    color: grey;
+    letter-spacing: 8px;
+}
+.left-right {
+    float: left;
+}

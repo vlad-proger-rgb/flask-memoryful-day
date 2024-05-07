@@ -1,0 +1,9 @@
+{% if images %}
+    {% for image in images %}
+        <div class="found-image">
+            <img class="image existing-image" id="{{ image.id }}" src="{{ url_for('static', filename='images/calendar/' + user + '/' + image.source) }}">
+        </div>
+    {% endfor %}
+{% else %}
+    <label>No images found</label>
+{% endif %}

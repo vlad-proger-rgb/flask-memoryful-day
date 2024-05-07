@@ -1,0 +1,34 @@
+
+nav, footer, header, aside, main {display: block; margin: 0; padding: 0;}
+
+nav, footer, header {user-select: none;}
+
+
+html, body {
+
+	padding: 0;
+	margin: 0;
+
+	height: 100%;
+	width: 100%;
+	line-height: 1;
+	font-size: 14px;
+    font-family: Verdana;
+
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+input, button, textarea {font-family:inherit;}
+input::-ms-clear {display: none;}
+button {cursor: pointer;}
+button::-moz-focus-inner {padding:0; border:0;}
+a, a:visited {text-decoration: none;}
+a:hover {text-decoration: none;}
+ul li {list-style: none;}
+img {vertical-align: top;}
+
+.main-container {
+    padding: 10px;
+    margin: 5% auto;
+}

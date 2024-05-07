@@ -1,0 +1,17 @@
+.website-footer {
+    position: relative;
+    bottom: 0;
+    background-color: #343434;
+    color: #cdcdcd;
+}
+.footer-container {
+    display: flex;
+    padding: 50px;
+    justify-content: space-around;
+}
+.footer-container > div {
+    padding: 5px;
+}
+.footer-container > div > ul > li {
+    list-style-type: none;
+}

@@ -1,0 +1,42 @@
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.memoryful-title {
+    background-image: linear-gradient(to right, blue, lightblue);
+    /* background-image: linear-gradient(to right, red, green, blue, yellow, white, grey, purple, orange, cadetblue); */
+    /* background-image: radial-gradient(blue, yellow); */
+    /* background-image: radial-gradient(blue, yellow, red, blue); */
+    
+
+
+    border-radius: 10px;
+    padding: 26px;
+    font-size: 20px;
+    color: aqua;
+    font-weight: bold;
+
+    animation: title-animation 4s infinite;
+
+    margin: 50px 20px;
+    height: 30px;
+
+}
+
+@keyframes title-animation {
+    
+    50% {
+        font-size: 30px;
+    
+    }
+
+}
+
+.widgets > div {
+    padding: 15px;
+    margin: 20px 10px;
+    background-color: rgba(211, 211, 211, 0.8);
+    border-radius: 10px;
+}

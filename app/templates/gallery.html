@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gallery - Memoryful Day</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_gallery.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_fullscreen_image.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_modals/style_modal.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_modals/images_from_calendar_by_date_range.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_modals/images_by_urls.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_modals/new_album.css') }}">
+
+    <script src="{{ url_for('static', filename='scripts/fullscreen_image_opener.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='scripts/scripts_modals/modal.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='scripts/scripts_modals/new_album.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='scripts/scripts_modals/images_from_calendar_by_date_range.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='scripts/scripts_modals/images_by_urls.js') }}"></script>
+</head>
+<body>
+	{% set year_today=year_today %}
+	{% include 'blocks/header.html' %}
+
+    <!-- Gallery not implemented yet :( -->
+
+    <main>
+
+        <div class="view-album-container">
+            <div>
+                <button class="new-album left-right open-modal__new-album">New album</button>
+            </div>
+
+            <div class="buttons-styles-container">
+                <button class="left-right view-album-list">
+                    <a href="{{ url_for('gallery.gallery', view_mode='list') }}">
+                        &#9776;
+                    </a>
+                </button>
+                <button class="left-right view-album-cube">
+                    <a href="{{ url_for('gallery.gallery', view_mode='square') }}">
+                        <div>▢▢</div>
+                        <div>▢▢</div>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        {% if albums %}
+            {% if view_mode == 'square' %}
+                <div class="albom-container-square">
+            {% else %}
+                <div class="albom-container-list">
+            {% endif %}
+                {% for album in albums %}
+                    {% set album = album %}
+                    {% set user = user %}
+                    {% if view_mode == 'square' %}
+                        {% include 'blocks/album_item_square.html' %}
+                    {% else %}
+                        {% include 'blocks/album_item_list.html' %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="album-container-empty">
+                <p>You have no albums yet :(</p>
+                <p>Let's create one!</p>
+                <p>(by clicking <button class="left-right">New album</button> button)</p>
+            </div>
+        {% endif %}
+
+        {% include 'modals/fullscreen_image.html' %}
+
+        {% include 'modals/new_album.html' %}
+
+        {% set type="in_gallery" %}
+        {% include 'modals/images_by_urls.html' %}
+
+        {% set type="in_gallery" %}
+        {% include 'modals/images_from_calendar_by_date_range.html' %}
+
+    </main>
+
+    {% include 'blocks/footer.html' %}
+
+    <script>
+        let startDate = document.querySelector('.start-date');
+        let endDate = document.querySelector('.end-date');
+
+        startDate.value = new Date(new Date() - 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+        endDate.value = new Date().toISOString().split("T")[0];
+
+
+
+        function createAlbum() {
+            let newAlbumName = document.querySelector('.new-album-name');
+            let newAlbumImages = document.getElementById('new-album-images');
+
+            let existingImagesIds = Array.from(document.querySelectorAll('.existing-image.selected')).map(image => image.id);
+            let imagesURLs = Array.from(document.querySelectorAll('.image-by-url')).map(image => image.value.trim());
+
+            if (!newAlbumName.value.trim()) {
+                alert("Please, enter a valid album name. It can't be empty or contain only spaces.");
+                return;
+            }
+
+            let albumNames = Array.from(document.querySelectorAll('.albom-item-square__name')).map(name => name.innerHTML);
+            console.log(albumNames)
+
+            for (name of albumNames) {
+                if (name === newAlbumName.value) {
+                    alert("Album with this name already exists");
+                    return;
+                }
+            }
+
+
+            console.log("newAlbumImages.files.length", newAlbumImages.files.length)
+            console.log("existingImagesIds.length", existingImagesIds.length)
+            console.log("imagesURLs.length", imagesURLs.length)
+            console.log("imagesURLs:", imagesURLs)
+
+            if (!newAlbumImages.files.length && !existingImagesIds.length & !imagesURLs.length) {
+                alert("Please, select at least one image from your device or calendar or add images by URL");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append('name', newAlbumName.value);
+            for (file of newAlbumImages.files) {
+                formData.append('images[]', file);
+            }
+            formData.append('existing_images', existingImagesIds);
+            formData.append('images_by_urls', imagesURLs);
+
+            fetch('/gallery/new_album', {
+                method: "POST",
+                body: formData
+            }).then(response => {
+                if (!response.ok) {
+                    console.log(response);
+                    alert('Error creating album:', response);
+                    throw new Error('Error creating album');
+                }
+                console.log("response:", response);
+                return response.json();
+            }).then(data => {
+                console.log("data:", data);
+                // location.reload();
+            }).catch(error => {
+                alert('Error creating album: ' + error);
+            });
+        };
+
+    </script>
+</body>
+</html>

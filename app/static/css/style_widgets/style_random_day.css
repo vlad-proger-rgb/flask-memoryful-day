@@ -1,0 +1,11 @@
+
+
+.random-day__title {
+    font-size: 24px;
+}
+
+.randomized-day > p {
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+}

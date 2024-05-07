@@ -1,0 +1,49 @@
+header {
+    background-color: dimgray;
+    width: 100%;
+}
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.open-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    cursor: pointer;
+}
+.open-sidebar__layer {
+    width: 40px;
+    height: 8px;
+    background-color: whitesmoke;
+    margin: 0 5px;
+    border-radius: 15px;
+    text-align: center;
+    line-height: 8px;
+}
+.open-sidebar:active > .open-sidebar__layer {
+    animation: open-sidebar-animation 0.3s ;
+}
+@keyframes open-sidebar-animation {
+    50% {
+        margin-left: 20px;
+        background-color: lightgray;
+    }
+}
+
+.nav-link {
+    color: white;
+    font-size: 20px;
+    margin: 0 50px;
+    line-height: 50px;
+    transition: all .5s;
+}
+.nav-link:hover {
+    color: cadetblue;
+}
+
+.favicon-image {
+    width: 50px;
+    height: 50px;
+}

@@ -1,0 +1,134 @@
+
+
+.view-album-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+}
+
+.buttons-styles-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+.buttons-styles-container > button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+}
+
+.view-album-list a {
+    font-size: 30px;
+}
+.view-album-cube div {
+    height: 18px;
+    line-height: 18px;
+}
+
+.album-container-empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    font-size: 30px;
+}
+
+.albom-container-square {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 30px 0;
+    padding: 0 10px;
+}
+
+.albom-item-square {
+    margin: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
+    cursor: pointer;
+    user-select: none;
+    display: inline-block;
+}
+
+.albom-item-square__image-container img {
+    width: 100%;
+    height: 300px;
+    margin: auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.albom-item-square__name {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.albom-item-square__image-container {
+    display: flex;
+    justify-content: space-around;
+}
+.albom-item-square__image-container img {
+    height: 300px;
+    margin: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.albom-container-list {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 0;
+    padding: 0 10px;
+}
+
+.albom-item-list {
+    display: flex;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.albom-item-list__name {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    height: 50px;
+    width: 300px;
+    transform-origin: top left;
+
+    transform: rotate(-90deg) translateX(-100%);
+}
+
+.albom-item-list__images {
+    display: flex;
+}
+
+.albom-item-list__image-container {
+    margin: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.albom-item-list__image-container img {
+    width: 100%;
+    height: 300px;
+    margin: auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
+    cursor: pointer;
+    display: inline-block;
+}
+

@@ -1,0 +1,58 @@
+
+.write-today > span {
+    margin: 0 10px;
+}
+
+#today-number {
+    background-color: red;
+    padding: 5px;
+    border-radius: 5px;
+}
+#write-today-go {
+    /* background-image: radial-gradient(white, blue); */
+    /* background-image: linear-gradient(to right, blue, white); */
+    /* transition: background-image 0.5s; */
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+
+    border-bottom: 2px solid red;
+    box-shadow: inset 0 0 10px blue;
+}
+#write-today-go:hover {
+
+    animation: go-button 0.5s ;
+    /* background-image: linear-gradient(to left, blue, white); */
+
+    /* background-image: radial-gradient(blue, white); */
+}
+
+@keyframes go-button {
+    25% {
+        border-top: 2px solid red;
+        color: red;
+    }
+    30% {
+        border-bottom: 2px solid yellow;
+    }
+    50% {
+        border-top: 2px solid yellow;
+        border-top-right-radius: 50%;
+        border-bottom-right-radius: 50%;
+
+        padding: 10px 25px;
+        letter-spacing: 10px;
+        font-style: italic;
+    }
+    75% {
+        border-left: 2px solid red;
+    }
+    90% {
+        border-right: 2px solid red;
+        color: blue;
+    }
+}
+
+
+
+

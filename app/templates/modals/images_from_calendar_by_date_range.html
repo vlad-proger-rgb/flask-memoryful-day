@@ -1,0 +1,28 @@
+<div class="modal modal__images-from-calendar-by-date-range-container">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <button class="left-right" onclick="findImagesFromCalendarByDateRange()">Find</button>
+            <div>Click Find button to find images</div>
+            <span class="close-modal close-modal__images-from-calendar-by-date-range">&times;</span>
+        </div>
+
+        <div class="modal-body">
+            <p>Select date period:</p>
+            <input type="date" class="start-date">
+            <input type="date" class="end-date">
+            <div>There will be a list of found images</div>
+        </div>
+
+        <div class="modal-footer">
+            {% if type == "in_album" %}
+                <button class="left-right" onclick='addImagesToAlbumFromCalendar("{{ album_name }}")'>Add</button>
+            {% elif type == "in_gallery" %}
+                <button class="left-right" onclick='addImagesToAlbumFromCalendar()'>Use</button>
+            {% else %}
+                <p>uhm.. something went wrong. Type: {{ type }}</p>
+            {% endif %}
+        </div>
+
+    </div>
+</div>

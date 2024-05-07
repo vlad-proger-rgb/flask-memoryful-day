@@ -1,0 +1,24 @@
+<div class="day-item">
+    <img class="day-item__main-image fullscreenable"
+        src="{{ url_for('static', filename='images/calendar/' + user + '/' + day.findMainImage().source) }}">
+
+    <div class="day-item__info">
+        <span>{{ year }}</span>
+        <span><b>{{ get_month_name(month) }}</b></span>
+        <span class="day-item__day-number">{{ index }}</span>
+
+        <p>
+            <img class="day-item__steps-img" 
+                src="{{ url_for('static', filename='images/step_img.png') }}">
+            <span class="day-item__steps">{{ day.steps }}</span>
+        </p>
+
+        <p class="day-item__description">{{ day.description }}</p>
+    </div>
+
+    <button class="left-right day-item__open-button">
+        <a href="{{ url_for('calendar.day', year=year, month=month, dayNumber=index) }}">
+            Open
+        </a>
+    </button>
+</div>

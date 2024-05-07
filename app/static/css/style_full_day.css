@@ -1,0 +1,124 @@
+@import url("./style_button.css");
+@import url("./style_image.css");
+
+.image {
+    width: 40%;
+}
+.image-container {
+    text-align: center;
+}
+
+.day__info {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    margin: 2% auto;
+}
+
+
+.day__note {
+    color: grey;
+    margin: 10px;
+}
+
+.day__steps-img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+.day_city-img {
+    width: 15px;
+    height: 25px;
+    margin-right: 5px;
+    position: relative;
+    bottom: 10px;
+}
+.day__description, .day__content, .day_no_images {
+    background-color: lightgray;
+    border-radius: 10px;
+    padding: 10px;
+    line-height: 20px;
+}
+
+
+
+.left-right__right {
+    background-color: lightgrey;
+}
+.left-right__right:active {
+    background-color: grey;
+}
+
+.description-container {
+    display: flex;
+}
+#description {
+    width: 80%;
+}
+
+
+.edit-modal {
+    display: none;
+    overflow-y: scroll;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.edit-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 70%;
+}
+
+.close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+
+.edit-content input, .edit-content textarea, .edit-content select {
+    display: block;
+    margin: 20px 10px;
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+    border: 0;
+    border-radius: 5px;
+    transition: all 0.3s;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+.edit-content input:focus, .edit-content textarea:focus, .edit-content select:focus {
+    box-shadow: 0px 0px 5px red;
+}
+
+.edit-content input:last-child:focus, .edit-content select {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.edit-content textarea {
+    width: 90%;
+    height: auto;
+    resize: none;
+    overflow: hidden;
+}
+.edit-content label {
+    display: block;
+    letter-spacing: 1px;
+    margin: 20px 0;
+}
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Search - Memoryful Day</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_search.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_search_item.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <script src="{{ url_for('static', filename='scripts/script.js') }}" type="text/javascript"></script>
+</head>
+<body>
+    {% include 'blocks/header.html' %}
+    <main>
+        <div class="search-bar">
+            <span class="pretty-button filter-open fas fa-sliders-h"></span>
+                <input class="search-bar__input" type="text" placeholder="Type here to search" {% if query %}value="{{ query }}"{% endif %}>
+            <i class="pretty-button fas fa-search search-run"></i>
+        </div>
+        <div class="search-results">
+            {% if results %}
+                {% for result in results %}
+                    {% set result=result %}
+                    {% include 'blocks/search_result_item.html' %}
+                {% endfor %}
+            {% else %}
+                <div class="search-results__no_content">No results yet...</div>
+            {% endif %}
+        </div>
+    </main>
+    <div id="search-filter-modal">
+        <div id="search-filter-modal-content">
+            <p class="filter-modal-header">
+                <span class="filter-modal-title">Filters</span>
+                <a class="pretty-button fa fa-close close-filter-modal" id="close"></a>
+            </p>
+            <p>Select date period:</p>
+            <div class="date-period">
+                <span>Start:</span>
+                <input type="date" class="start-date">
+
+                <span>End:</span>
+                <input type="date" class="end-date">
+            </div>
+
+            <p>Select tags that would help to shorten data to research and save your time</p>
+            <div class="filter-tags-container">
+                {% for tag in tags %}
+                    <span class="filter-tag">{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+            <button class="left-right" id="search-filter-submit">Save filters</button>
+        </div>
+    </div>
+    {% include 'blocks/footer.html' %}
+    <script>
+        let filterModal = document.getElementById("search-filter-modal");
+        let openFilterModalButton = document.querySelector(".filter-open");
+        let closeFilterModalButton = document.getElementById("close");
+        let sumbitFilterModalButton = document.getElementById("search-filter-submit");
+        let searchRun = document.querySelector(".search-run");
+        let searchQuery = document.querySelector(".search-bar__input");
+        let startDate = document.querySelector(".start-date");
+        let endDate = document.querySelector(".end-date");
+        let filterTagsContainer = document.querySelector(".filter-tags-container");
+
+        openFilterModalButton.addEventListener("click", () => {
+            filterModal.style.display = "block";
+        });
+        closeFilterModalButton.addEventListener("click", () => {
+            filterModal.style.display = "none";
+        });
+        sumbitFilterModalButton.addEventListener("click", () => {
+            filterModal.style.display = "none";
+        });
+        filterTagsContainer.addEventListener('click', (event) => {
+            if (event.target.classList.contains('filter-tag')) {
+                event.target.classList.toggle('selected');
+            }
+        });
+        startDate.value = getDateOneMonthAgo();
+        endDate.value = new Date().toISOString().split("T")[0];
+        searchRun.addEventListener("click", () => {
+            let selectedTags = Array.from(filterTagsContainer.querySelectorAll('.filter-tag.selected')).map(tag => tag.innerHTML);
+            let pageUrl = `search?q=${searchQuery.value}&startDate=${startDate.value}&endDate=${endDate.value}&tags=${selectedTags}`;
+            console.log(pageUrl);
+            window.location.href = pageUrl;
+        });
+    </script>
+</body>
+</html>

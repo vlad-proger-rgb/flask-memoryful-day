@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ year }} - Memoryful Day</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_months_of_year.css') }}">
+</head>
+<body>
+
+    {% include 'blocks/header.html' %}
+
+    <main>
+        <div class="main-container">
+
+            <h1 class="year-heading">{{ year }}</h1>
+
+            {% for month in range(1, 13) %}
+                <h3>
+                    <a href="{{ url_for('calendar.month', year=year, month=month) }}" class="month">
+                        {{ get_month_name(month) }}
+                    </a>
+                </h3>
+            {% endfor %}
+
+            <div>
+                <div class="left-right">
+                    <a href="{{ url_for('calendar.calendar', year=year-1) }}">Last Year</a>
+                </div>
+                <div class="left-right">
+                    <a href="{{ url_for('calendar.calendar', year=year+1) }}">Next Year</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include 'blocks/footer.html' %}
+
+</body>
+</html>

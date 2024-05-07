@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>{{ title }} - Memoryful Day</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_widgets/style_new_day.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_widgets/style_random_day.css') }}">
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+</head>
+<body>
+    {% include 'blocks/header.html' %}
+    <main>
+        <div class="memoryful-title">
+            Memoryful Day - your everyday's diary
+        </div>
+        <div class="widgets">
+            {% include 'widgets/write_today.html' %}
+            {% include 'widgets/random_day.html' %}
+            {% include 'widgets/weekly_steps.html' %}
+            <button class="left-right">
+                More widgets +
+            </button>
+        </div>
+    </main>
+    {% include 'blocks/footer.html' %}
+    <script>
+        document.querySelector(".randomize-day-button").addEventListener("click", function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/api/get_random_day", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    let response = JSON.parse(xhr.responseText);
+                    let randomDayDate = new Date(+response.id * 1000);
+                    console.log("response:", response)
+                    console.log("monthNum:" + randomDayDate.getMonth())
+                    console.log("monthName:" + monthNumberToMonthName(randomDayDate.getMonth()));
+                    document.querySelector(".randomized-day").innerHTML = `
+                    <div class="randomized-day">
+                        <p class="random-date">${randomDayDate.toLocaleDateString()}</p>
+                        <p class="random-steps">${"Daily steps: " + response.steps}</p>
+                        <p class="random-description">${"Day's Content: " + response.description}</p>
+                        <p class="random-content">${"Day's Content: " + response.content}</p>
+                        <a class="left-right" href="/calendar/${randomDayDate.getFullYear()}/${randomDayDate.getMonth() + 1}/${randomDayDate.getDate()}">View Day ></a>
+                    </div>`;
+                }
+            };
+            xhr.send();
+        });
+    </script>
+</body>
+</html>
