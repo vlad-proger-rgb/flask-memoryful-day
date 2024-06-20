@@ -1,24 +1,37 @@
-<div class="day-item">
-    <img class="day-item__main-image fullscreenable"
-        src="{{ url_for('static', filename='images/calendar/' + user + '/' + day.findMainImage().source) }}">
+<div class="day-item-container">
+    <div class="day-item">
 
-    <div class="day-item__info">
-        <span>{{ year }}</span>
-        <span><b>{{ get_month_name(month) }}</b></span>
-        <span class="day-item__day-number">{{ index }}</span>
+        <div class="day-item__open-day-container">
+            <a class="left-right" href="{{ url_for('calendar.day', year=year, month=month, dayNumber=index) }}">
+                Open
+            </a>
+        </div>
 
-        <p>
-            <img class="day-item__steps-img" 
-                src="{{ url_for('static', filename='images/step_img.png') }}">
-            <span class="day-item__steps">{{ day.steps }}</span>
-        </p>
+        <div class="day-item__date-container">
+            {{ year }}
+            <b>{{ get_month_name(month) }}</b>
+            {{ index }}
+        </div>
 
-        <p class="day-item__description">{{ day.description }}</p>
+        <div class="day-item__steps-container">
+            <span class="steps-container__steps-img">&#128099;</span>
+            <span class="steps-container__steps">{{ day.steps }}</span>
+        </div>
+
+        <div class="day-item__city-container">
+            <span class="city-container__city-img">&#127961;</span>
+            <span class="city-container__city">{{ day.city_name }}</span>
+        </div>
+
+        <div class="day-item__image-container">
+            <img class="image-container__image fullscreenable"
+                src="{{ url_for('static', filename='images/calendar/' + user + '/' + day.findMainImage().source) }}"
+                alt="Main image of that day">
+        </div>
+
+        <div class="day-item__description-container">
+            <p>{{ day.description }}</p>
+        </div>
+
     </div>
-
-    <button class="left-right day-item__open-button">
-        <a href="{{ url_for('calendar.day', year=year, month=month, dayNumber=index) }}">
-            Open
-        </a>
-    </button>
 </div>

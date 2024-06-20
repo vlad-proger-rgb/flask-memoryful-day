@@ -51,7 +51,7 @@ def day(year: int, month: int, dayNumber: int):
 
 	if request.method == "POST":
 		if day:
-			day.city_id = request.form["city_id"]
+			day.city_id = request.form["city"]
 			day.description = request.form["description"]
 			day.content = request.form["content"]
 			day.steps = request.form["steps"]
@@ -64,15 +64,15 @@ def day(year: int, month: int, dayNumber: int):
 				steps = request.form["steps"]
 			)
 
-		if request.files["mainImage"]:
-			file = request.files["mainImage"]
+		if request.files["main-image"]:
+			file = request.files["main-image"]
 			file.save(f"app/static/images/calendar/vlad/{file.filename}")
 			image = Image(source=file.filename, main_image=1)
 			image.save()
 			day.setMainImage(image)
 
-		if request.files.getlist("otherImages[]")[0]:
-			for img in request.files.getlist("otherImages[]"):
+		if request.files.getlist("other-images[]")[0]:
+			for img in request.files.getlist("other-images[]"):
 				img.save(f"app/static/images/calendar/vlad/{img.filename}")
 				image = Image(source=img.filename)
 				image.save()

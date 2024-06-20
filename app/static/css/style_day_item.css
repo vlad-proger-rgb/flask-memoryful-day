@@ -1,62 +1,60 @@
-@import url("style_button.css");
 
 .day-item {
-    margin: 10px;
-    padding: 10px;
-    width: 500px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 75px 150px;
+    margin: 20px;
+    padding: 20px 10px;
+    width: 60%;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-.day-item__main-image {
+.day-item > div {
+    margin: auto auto;
+}
+
+
+.day-item__description-container {
+    grid-column-start: 2;
+    grid-column-end: -1;
+}
+
+.image-container__image {
     width: 200px;
     height: 100px;
-    margin: 10px;
-    float: left;
+    margin: 25px;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
 }
-.day-item__main-image:hover {
+
+.image-container__image:hover {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 1);
 }
-.day-item__day-number {
+
+.day-item__date-container {
+    font-size: 22px;
+}
+.steps-container__steps-img {
+    font-size: 30px;
+}
+.steps-container__steps {
     font-size: 24px;
 }
-.day-item__steps-img {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
+.city-container__city-img {
+    font-size: 30px;
 }
-.day-item__steps {
-    font-size: 16px;
+.city-container__city {
+    font-size: 24px;
 }
 
-
-/* .day-item__open-button {
-    width: 80px;
-    margin: 10px;
-    padding: 5px;
-    font-size: 20px;
-    text-align: center;
-    background-color: #4caf50;
-    color: white;
-    transition: all 0.3s;
-    cursor: pointer;
-    user-select: none;
-    
-
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+.day-item__open-day-container {
+    margin: auto auto;
+}
+.day-item__open-day-container > a {
+    font-size: 28px;
+    padding: 10px 50px;
 }
 
-.day-item__open-button:hover {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.6);
-
-}
-.day-item__open-button:active {
-    background-color: green;
-} */
-
-
-.left-right {
-    float: none;
+.day-item__description-container {
+    line-height: 20px;
 }

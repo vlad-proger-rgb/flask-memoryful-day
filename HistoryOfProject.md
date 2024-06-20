@@ -27,7 +27,7 @@ And when I found out LM Studio and local LLMs for free and realized how they are
 
 I wanted to move my project on GitHub, because all this time I just synced it through Google Drive.
 And on GitHub I can see the progress of the project and created some issues.
-Before moving on GitHub I wanted to have the project on some "done enough" state. 
+Before moving on GitHub I wanted to have the project on some "done enough" state.
 So, I started on implementing the Gallery page.
 I decided that Gallery will have albums and images in it.
 With the help from Codeium AI I implemented albums in less than one day!!!

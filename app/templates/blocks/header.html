@@ -1,18 +1,16 @@
 <header>
-    <nav class="nav-container">
-        <div class="open-sidebar">
-            <div class="open-sidebar__layer">-</div>
-            <div class="open-sidebar__layer">-</div>
-            <div class="open-sidebar__layer">-</div>
-        </div>
-        <div class="nav-links">
-            <a class="nav-link" href="{{ url_for('calendar.calendar', year=get_current_year()) }}">Calendar</a>
-            <a class="nav-link" href="{{ url_for('gallery.gallery') }}">Gallery</a>
-            <a class="nav-link" href="{{ url_for('search.search') }}">Search</a>
-            <a class="nav-link" href="{{ url_for('about.about') }}">About us</a>
-        </div>
+    <nav class="flex nav-container">
+        <button class="open-sidebar">
+            &#9776;
+        </button>
+        <ul class="flex nav-links">
+            <li><a class="nav-link" href="{{ url_for('calendar.calendar', year=get_current_year()) }}">Calendar</a></li>
+            <li><a class="nav-link" href="{{ url_for('gallery.gallery') }}">Gallery</a></li>
+            <li><a class="nav-link" href="{{ url_for('search.search') }}">Search</a></li>
+            <li><a class="nav-link" href="{{ url_for('about.about') }}">About us</a></li>
+        </ul>
         <div>
-            <a class="favicon-link" href="{{ url_for('index') }}"><img class="favicon-image" src="{{ url_for('static', filename='images/calendar.png') }}" alt="logo_img"></a>
+            <a class="favicon-link" href="{{ url_for('index') }}"><img class="favicon-image" src="{{ url_for('static', filename='images/calendar.png') }}" alt="Memoryful Day Website Logo"></a>
         </div>
     </nav>
 </header>

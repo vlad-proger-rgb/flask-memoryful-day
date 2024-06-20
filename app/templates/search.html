@@ -18,10 +18,10 @@
     <main>
         <div class="search-bar">
             <span class="pretty-button filter-open fas fa-sliders-h"></span>
-                <input class="search-bar__input" type="text" placeholder="Type here to search" {% if query %}value="{{ query }}"{% endif %}>
+            <input class="search-bar__input" type="text" placeholder="Type here to search" {% if query %}value="{{ query }}"{% endif %}>
             <i class="pretty-button fas fa-search search-run"></i>
         </div>
-        <div class="search-results">
+        <div>
             {% if results %}
                 {% for result in results %}
                     {% set result=result %}
@@ -86,7 +86,7 @@
         endDate.value = new Date().toISOString().split("T")[0];
         searchRun.addEventListener("click", () => {
             let selectedTags = Array.from(filterTagsContainer.querySelectorAll('.filter-tag.selected')).map(tag => tag.innerHTML);
-            let pageUrl = `search?q=${searchQuery.value}&startDate=${startDate.value}&endDate=${endDate.value}&tags=${selectedTags}`;
+            let pageUrl = `?q=${searchQuery.value}&startDate=${startDate.value}&endDate=${endDate.value}&tags=${selectedTags}`;
             console.log(pageUrl);
             window.location.href = pageUrl;
         });

@@ -17,7 +17,6 @@
 
     cursor: pointer;
     user-select: none;
-    display: inline-block;
 }
 
 .left-right:hover {

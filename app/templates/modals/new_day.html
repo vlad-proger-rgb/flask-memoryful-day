@@ -1,0 +1,65 @@
+<div class="modal modal__write-day-container">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <span class="modal-title">Write Day Window</span>
+            <span class="close-modal close-modal__write-day">&times;</span>
+        </div>
+
+        <div class="modal-body">
+            <form method="post"
+                action="{{ url_for('calendar.day', year=year, month=month, dayNumber=dayNumber) }}"
+                enctype="multipart/form-data"
+                id="write-day-form"
+                class="write-day-form">
+
+                <label for="main-image">Upload Main Image</label>
+                <input type="file" id="main-image" name="main-image" accept="image/*" placeholder="Load your file">
+                <img class="image main-image-preview">
+
+                <label for="other-images">Upload Other Images</label>
+                <input type="file" id="other-images" name="other-images[]" accept="image/*" multiple>
+                <div class="other-images-preview">No images to upload</div>
+
+                <label for="city">Enter City</label>
+                <select id="city" name="city" value="{{ day.city_id }}">
+                    {% for city in cities %}
+                        <option value="{{ city.id }}" {% if city.id == day.city_id %}selected{% endif %}>
+                            {{ city.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <label for="steps">Daily Steps</label>
+                <input id="steps" name="steps" type="number" placeholder="10000"
+                    value="{{ day.steps }}">
+
+                <label for="description">Description</label>
+                <div class="flex">
+                    <input id="description" name="description" type="text" placeholder="Enter day's description"
+                        value="{{ day.description }}">
+                    <button type="button" class="left-right auto-generate-description" onclick="getCompletion()" title="Generate with ChatGPT 3.5">Generate</button>
+                </div>
+
+                <label for="content">Content</label>
+                <textarea id="content" name="content" placeholder="Enter day's content">
+                    {{ day.content }}
+                </textarea>
+
+                <label for="tags">Give tags that could help find this day in the "Search" tab.</label>
+                <select id="tags" name="tags" multiple>
+                    {% for tag in tags %}
+                        <option value="{{ tag.name }}" {% if tag.name in day.getTagNames() %} selected {% endif %}>
+                            {{ tag.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <input class="left-right" id="write-day-submit" value="Save" onclick="saveDay()" type="button">
+        </div>
+    </div>
+</div>

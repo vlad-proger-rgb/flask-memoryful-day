@@ -1,5 +1,5 @@
 import calendar
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def get_days_in_month(year: int, month: int):
     return calendar.monthrange(year, month)[1]
@@ -29,3 +29,9 @@ def timestamp_to_date(timestamp):
     day = date_obj.day
 
     return year, month, day
+
+def get_date_one_month_ago(date = None):
+    return (date if date else datetime.now()) - timedelta(30)
+
+def get_today():
+    return datetime.now()

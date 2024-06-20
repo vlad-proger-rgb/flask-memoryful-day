@@ -13,7 +13,7 @@ flaskApp = Flask(__name__)
 flaskApp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///memoryful_day_database.db'
 
 @flaskApp.route("/")
-def index():
+def index() -> str:
     title = "Main Page"
     return render_template(
         "index.html",

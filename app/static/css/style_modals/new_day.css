@@ -1,0 +1,47 @@
+
+
+
+.write-day-form input,
+.write-day-form textarea,
+.write-day-form select {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+    border: 0;
+    border-radius: 5px;
+    transition: all 0.3s;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+.write-day-form input:focus,
+.write-day-form textarea:focus,
+.write-day-form select:focus {
+    box-shadow: 0px 0px 5px red;
+}
+
+.write-day-form input:last-child:focus,
+.write-day-form select {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.write-day-form textarea {
+    height: auto;
+    resize: none;
+    overflow: hidden;
+}
+.write-day-form label {
+    display: block;
+    letter-spacing: 1px;
+    margin: 20px 0;
+}
+
+/* #description {
+    width: 80%;
+} */
+
+.write-day-form input,
+.write-day-form textarea,
+.write-day-form select {
+    width: 100%;
+}

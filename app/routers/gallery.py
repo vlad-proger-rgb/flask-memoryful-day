@@ -67,7 +67,7 @@ def new_albom():
 def album(album_name: str):
     from database import Album, Image
 
-    album = Album.findByName(album_name)
+    album = Album.findBy(name=album_name)
 
     if not album:
         return redirect(url_for("gallery.gallery"))

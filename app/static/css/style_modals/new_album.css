@@ -28,14 +28,3 @@
     width: 100%;
     margin-bottom: 20px;
 }
-
-.new-album-modal-title {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-
-
-.new-album-images {
-    cursor: pointer;
-}

@@ -9,9 +9,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style_footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style_full_day.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style_fullscreen_image.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_modals/style_modal.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_modals/new_day.css') }}">
 
     <script src="{{ url_for('static', filename='scripts/script.js') }}" type="text/javascript"></script>
     <script src="{{ url_for('static', filename='scripts/fullscreen_image_opener.js') }}" type="text/javascript"></script>
+    <script defer src="{{ url_for('static', filename='scripts/scripts_modals/modal.js') }}" type="text/javascript"></script>
+    <script defer src="{{ url_for('static', filename='scripts/scripts_modals/new_day.js') }}" type="text/javascript"></script>
 </head>
 <body>
 
@@ -19,44 +23,44 @@
 
     <main>
         <div class="main-container">
-            <div class="image-container">
-                <img class="image" alt="There must be a main image of this day"
+            <div class="main-image-container">
+                <img class="image" alt="Main image of this day"
                 src="{{ url_for('static', filename='images/calendar/' + user + '/' + day.findMainImage().source) }}">
             </div>
             <div class="day__info-container">
-                <div class="day__info">
+                <div class="flex day__info">
                     <span>
-                        <span class="day__year-number">{{ year }}</span>
-                        <span class="day__month"><b>{{ get_month_name(month) }}</b></span>
-                        <span class="day__day-number">{{ dayNumber }}</span>
+                        {{ year }}
+                        <b>{{ get_month_name(month) }}</b>
+                        {{ dayNumber }}
                     </span>
                     <span>
-                        <img class="day_city-img" alt="maps icon" src="https://th.bing.com/th/id/OIP.DTrytJh3pDBSguzzeLDXUgHaKn?w=122&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7">
-                        <span class="day__city">{{ day.getCity() }}</span>
+                        <img class="day__city-img" alt="maps icon" src="https://th.bing.com/th/id/OIP.DTrytJh3pDBSguzzeLDXUgHaKn?w=122&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7">
+                        {{ day.getCity() }}
                     </span>
                     <span>
                         <img class="day__steps-img" alt="step_img.png" src="{{ url_for('static', filename='images/step_img.png') }}">
-                        <span class="day__steps">{{ day.steps }}</span>
+                        {{ day.steps }}
                     </span>
                 </div>
                 {% if day.tags %}
-                    <div class="day__info">
+                    <div class="flex day__info">
                         <span>
                             {% for tag in day.tags %}
-                                <span class="day__tag">#{{ tag.name }}</span>
+                                <a href="{{ url_for('search.search', tags=tag.name)}}" title="Open days under this tag"># {{ tag.name }}</a>
                             {% endfor %}
                         </span>
                     </div>
                 {% endif %}
 
-                <h4 class="day__note">Short description</h5>
+                <h4 class="day__note">Short description</h4>
                 <p class="day__description">{{ day.description }}</p>
 
-                <h3 class="day__note">Content of the day</h5>
+                <h4 class="day__note">Content of the day</h5>
                 <p class="day__content">{{ day.content }}</p>
             </div>
 
-            <h3 class="day__note">Photogallery</h3>
+            <h4 class="day__note">Photogallery</h4>
 
             {% if day.findOtherImages() %}
                 {% for image in day.findOtherImages() %}
@@ -67,10 +71,10 @@
             {% endif %}
 
             <div>
-                <button class="left-right" id="openEditModalBtn">
+                <button class="left-right open-modal__write-day">
                     Edit Day
                 </button>
-                <button class="left-right left-right__right">
+                <button class="left-right">
                     <a href="{{ url_for('calendar.month', year=year, month=month) }}">
                         Go back
                     </a>
@@ -78,55 +82,7 @@
             </div>
         </div>
 
-        <div id="edit-modal" class="edit-modal">
-            <div class="edit-content">
-                <span class="close">&times;</span>
-                <h2>Edit Day Window</h2>
-                <form method="post"
-                    action="{{ url_for('calendar.day', year=year, month=month, dayNumber=dayNumber) }}"
-                    enctype="multipart/form-data">
-
-                    <label for="mainImage">Upload Main Image</label>
-                    <input type="file" id="mainImage" name="mainImage" accept="image/*" placeholder="Load your file">
-                    <img class="image main-image-preview">
-
-                    <label for="otherImages">Upload Other Images</label>
-                    <input type="file" id="otherImages" name="otherImages[]" accept="image/*" multiple>
-                    <div class="other-images-preview">No images to upload</div>
-
-                    <label for="city">Enter City</label>
-                    <select id="city_id" name="city_id" value="{{ day.city_id }}">
-                        {% for city in cities %}
-                            <option value="{{ city.id }}" {% if city.id == day.city_id %}selected{% endif %}>{{ city.name }}</option>
-                        {% endfor %}
-                    </select>
-
-                    <label for="steps">Daily Steps</label>
-                    <input id="steps" type="number" tabindex="1" placeholder="10000"
-                        value="{{ day.steps }}" name="steps">
-
-                    <label for="description">Description</label>
-                    <div class="description-container">
-                        <input id="description" type="text" tabindex="2" placeholder="Enter day's description"
-                            value="{{ day.description }}" name="description">
-                        <button type="button" class="left-right auto-generate-description" onclick="getCompletion()" title="Generate with ChatGPT 3.5">Generate</button>
-                    </div>
-
-                    <label for="content">Content</label>
-                    <textarea id="content" tabindex="3" placeholder="Enter day's content"
-                        name="content">{{ day.content }}</textarea>
-
-                    <label for="tags">Give some tags that would help to find this day in the "Search" tab.</label>
-                    <select id="tags" name="tags" tabindex="4" multiple>
-                        {% for tag in tags %}
-                            <option value="{{ tag.name }}" {% if tag.name in day.getTagNames() %} selected {% endif %}>{{ tag.name }}</option>
-                        {% endfor %}
-                    </select>
-
-                    <input type="submit" tabindex="4" class="left-right" id="editSubmit" value="Save">
-                </form>
-            </div>
-        </div>
+        {% include 'modals/new_day.html' %}
 
         {% include 'modals/fullscreen_image.html' %}
 
@@ -135,26 +91,13 @@
     {% include 'blocks/footer.html' %}
 
     <script>
-        const openEditModalBtn = document.getElementById("openEditModalBtn");
-        const editModal = document.getElementById("edit-modal");
-        const closeEditModal = document.querySelector(".close");
-        const modalSubmitBtn = document.getElementById("editSubmit");
         const descriptionArea = document.getElementById("description");
         const contentArea = document.getElementById("content");
-        const loadMainImageElement = document.getElementById("mainImage");
+        const loadMainImageElement = document.getElementById("main-image");
         const mainImagePreviewElement = document.querySelector(".main-image-preview");
-        const loadOtherImagesElement = document.getElementById("otherImages");
+        const loadOtherImagesElement = document.getElementById("other-images");
         const otherImagesPreviewElement = document.querySelector(".other-images-preview");
 
-        openEditModalBtn.addEventListener("click", () => {
-            editModal.style.display = "block";
-        });
-        closeEditModal.addEventListener("click", () => {
-            editModal.style.display = "none";
-        });
-        modalSubmitBtn.addEventListener("click", () => {
-            editModal.style.display = "none";
-        });
         contentArea.addEventListener("input", () => {
             contentArea.style.height = "auto";
             contentArea.style.height = contentArea.scrollHeight + "px";
