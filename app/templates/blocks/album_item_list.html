@@ -1,12 +1,12 @@
-<div class="albom-item-list">
-    <div class="albom-item-list__name">
+<div class="album-item-list">
+    <div class="album-item-list__name">
         <a href="{{ url_for('gallery.album', album_name=album.name) }}">
             {{ album.name }}
         </a>
     </div>
-    <div class="albom-item-list__images">
+    <div class="album-item-list__images">
         {% for image in album.findThreeImages() %}
-            <div class="albom-item-list__image-container">
+            <div class="album-item-list__image-container">
                 <img class="fullscreenable" src="{{ url_for('static', filename='images/calendar/' + user + '/' + image.source) }}">
             </div>
         {% endfor %}

@@ -15,7 +15,7 @@ endDate.value = new Date().toISOString().split("T")[0];
 
 
 function createAlbum() {
-    let newAlbumName = document.querySelector('.new-album-name');
+    let newAlbumName = document.getElementById('new-album-name');
     let newAlbumImages = document.getElementById('new-album-images');
 
     let existingImagesIds = Array.from(document.querySelectorAll('.existing-image.selected')).map(image => image.id);
@@ -26,7 +26,7 @@ function createAlbum() {
         return;
     }
 
-    let albumNames = Array.from(document.querySelectorAll('.albom-item-square__name')).map(name => name.innerHTML);
+    let albumNames = Array.from(document.querySelectorAll('.album-item-square__name')).map(name => name.innerHTML);
     console.log(albumNames)
 
     for (name of albumNames) {

@@ -6,8 +6,14 @@ import sys
 sys.path.append(".")
 sys.path.append("..")
 
-from routers import calendar, gallery, search, about, api
 import date_utils
+from routers import (
+    calendar,
+    gallery,
+    search,
+    about,
+    api,
+)
 
 flaskApp = Flask(__name__)
 flaskApp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///memoryful_day_database.db'

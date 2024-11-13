@@ -20,7 +20,7 @@ def gallery(view_mode="square"):
 
 
 @gallery_bp.route("/new_album", methods=['POST'])
-def new_albom():
+def new_album():
     from database import Album, Image
 
     album = Album(
@@ -175,7 +175,7 @@ def imagesByDateRange():
 @gallery_bp.route("/album/<album_name>/add_images_by_urls", methods=['POST'])
 def addImagesByURLs(album_name: str):
     from database import Album, Image
-    album = Album.findByName(album_name)
+    album = Album.findBy(name=album_name)
     if not album:
         return {"success": False, "message": "Album not found"}
 
@@ -197,7 +197,7 @@ def addImagesByURLs(album_name: str):
 @gallery_bp.route("/album/<album_name>/add_images_from_calendar", methods=['POST'])
 def addImagesFromCalendar(album_name: str):
     from database import Album, Image
-    album = Album.findByName(album_name)
+    album = Album.findBy(name=album_name)
     print("addImagesFromCalendar album_name:", album_name)
 
     if not album:

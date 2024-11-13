@@ -1,4 +1,4 @@
-from typing import Any, Dict, Type, TypeVar
+from typing import Any, Type, TypeVar
 from flask import Flask
 
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
@@ -143,7 +143,7 @@ class Image(db.Model, EntityMixin):
         found_image = db.session.query(Image).filter(Image.source == name).all()
         return found_image
 
-    def delete(self, isAllowedToDeleteFile: bool = False) -> dict[str, str]:
+    def delete(self, isAllowedToDeleteFile: bool = False) -> dict[str, str | bool]:
 
         if self in self.days:
             return {"success": False, "message": "This image presents in a day"}

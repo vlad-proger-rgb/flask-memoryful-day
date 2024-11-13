@@ -1,21 +1,13 @@
-
-
 import openai
 import urllib3
 import requests
 
+from settings import OPENAI_API_KEY
+
 # from custom_loggers import GPTLogger
 
-
-try:
-    with open("openAI_token.txt", "r") as f:
-        OPENAI_API_TOKEN = f.readline()
-        # GPTLogger.debug("OpenAI's ChatGPT token successfully imported")
-except:
-    raise Exception("""You do not have a openAI_token.txt file or renamed.""")
-
 CLIENT = openai.OpenAI(
-    api_key = OPENAI_API_TOKEN,
+    api_key = OPENAI_API_KEY,
     timeout=30
 )
 

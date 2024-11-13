@@ -16,9 +16,7 @@ def get_current_year():
 
 def date_to_timestamp(year, month, day):
     date_obj = datetime(year, month, day)
-
     timestamp = int(date_obj.timestamp())
-
     return timestamp
 
 def timestamp_to_date(timestamp):

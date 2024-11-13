@@ -1,6 +1,6 @@
-<div class="albom-item-square">
-    <div class="albom-item-square__name">{{ album.name }}</div>
-    <div class="albom-item-square__image-container">
+<div class="album-item-square">
+    <div class="album-item-square__name">{{ album.name }}</div>
+    <div class="album-item-square__image-container">
         <a href="{{ url_for('gallery.album', album_name=album.name) }}">
             <img src="{{ url_for('static', filename='images/calendar/' + user + '/' + album.findFirstImage().source) }}">
         </a>
